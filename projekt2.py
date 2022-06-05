@@ -12,8 +12,8 @@ import random
 cow = 0
 bull = 0
 oddelovac = "-" * 48
-
-# seznam 4 náhodných číslic
+pocet_zadani = 0
+# seznam 4 náhodných nestejných číslic
 
 nahodne_cislo = list()
 
@@ -35,7 +35,7 @@ treti_cislice = nahodne_cislo[2]
 ctvrta_cislice = nahodne_cislo[3]
 nahodne_cislo_seznam = list(f"{prvni_cislice}{druha_cislice}{treti_cislice}{ctvrta_cislice}")
 
-#jen pro kontrolu
+#jen pro kontrolu potom smazat
 print(nahodne_cislo)
 
 # úvodní text
@@ -49,11 +49,17 @@ print(oddelovac)
 
 def seznam_zadane_cislo():
     zadane_cislo = input("Enter a number:")
-    if len(zadane_cislo) == 4:
+    if zadane_cislo.isnumeric() and len(zadane_cislo) == 4:
         print(oddelovac)
     else:
-        print("the number doesnt have four numbers")
+        print("the number doesnt have four numbers or not numeric")
         quit()
+    if zadane_cislo[0] == "0":
+        print("0 mustn\'t be in the first place")
+    global pocet_zadani
+    if zadane_cislo != 0:
+        pocet_zadani = pocet_zadani + 1
+    print(pocet_zadani)
     global zadane_cislo_seznam
     zadane_cislo_seznam = list(f"{zadane_cislo[0]}{zadane_cislo[1]}{zadane_cislo[2]}{zadane_cislo[3]}")
 
@@ -77,35 +83,37 @@ def pocitani_cow(cow = 0):
         quit()
 
 # počítání bull
+
 def pocitani_bull(bull = 0):
     if zadane_cislo_seznam[0] == nahodne_cislo_seznam[1]:
         bull = bull + 1
-    elif zadane_cislo_seznam[0] == nahodne_cislo_seznam[2]:
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[2]:
         bull = bull + 1
-    elif zadane_cislo_seznam[0] == nahodne_cislo_seznam[3]:
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[3]:
         bull = bull + 1
     if zadane_cislo_seznam[1] == nahodne_cislo_seznam[0]:
         bull = bull + 1
-    elif zadane_cislo_seznam[1] == nahodne_cislo_seznam[2]:
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[2]:
         bull = bull + 1
-    elif zadane_cislo_seznam[1] == nahodne_cislo_seznam[3]:
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[3]:
         bull = bull + 1
     if zadane_cislo_seznam[2] == nahodne_cislo_seznam[0]:
         bull = bull + 1
-    elif zadane_cislo_seznam[2] == nahodne_cislo_seznam[1]:
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[1]:
         bull = bull + 1
-    elif zadane_cislo_seznam[2] == nahodne_cislo_seznam[3]:
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[3]:
         bull = bull + 1
     if zadane_cislo_seznam[3] == nahodne_cislo_seznam[0]:
         bull = bull + 1
-    elif zadane_cislo_seznam[3] == nahodne_cislo_seznam[1]:
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[1]:
         bull = bull + 1
-    elif zadane_cislo_seznam[3] == nahodne_cislo_seznam[2]:
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[2]:
         bull = bull + 1
     if bull <= 1:
         print("bull: ", bull)
     else:
         print("bulls: ", bull)
+
     print(oddelovac)
 
 # opakování hry
@@ -115,5 +123,8 @@ while cow < 4:
     pocitani_cow()
     pocitani_bull()
 
-
+#dořešit cow a bull vedle sebe
+#počítání pokusů
+#texty
+#dořešit špatně zadaná čísla (více, méně, jiné znaky)
 
