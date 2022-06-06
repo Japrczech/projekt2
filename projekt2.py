@@ -8,64 +8,71 @@ discord: Jarek#3498
 # import balíčků (random = náhodný výběr)
 import random
 
-# základní definice a texty
+# základní proměnné
 cow = 0
 bull = 0
 oddelovac = "-" * 48
 pocet_zadani = 0
-# seznam 4 náhodných nestejných číslic
 
+# seznam 4 náhodných nestejných číslic
 nahodne_cislo = list()
 
 while len(nahodne_cislo) < 4:
-    cislo = random.randint(0,9)
+    cislo = random.randint(0, 9)
     if cislo not in nahodne_cislo:
         nahodne_cislo.append(cislo)
 
-#odstranění 0 na začátku, obrácením pořadí seznamu
-
+# odstranění 0 na začátku, obrácením pořadí seznamu
 if nahodne_cislo[0] == 0:
     nahodne_cislo.reverse()
 
 # převedení seznamu na str
-
 prvni_cislice = nahodne_cislo[0]
 druha_cislice = nahodne_cislo[1]
 treti_cislice = nahodne_cislo[2]
 ctvrta_cislice = nahodne_cislo[3]
 nahodne_cislo_seznam = list(f"{prvni_cislice}{druha_cislice}{treti_cislice}{ctvrta_cislice}")
 
-#jen pro kontrolu potom smazat
-print(nahodne_cislo)
+# jen pro kontrolu
+# print(nahodne_cislo)
 
 # úvodní text
-
 print("Hi there!")
 print(oddelovac)
 print("I've generated a random 4 digit number for you.\nLet's play a bulls and cows game")
 print(oddelovac)
 
-# začátek hry - zadání čísla, rozdělení na jednotlivé číslice do seznamu
 
+# začátek hry - zadání čísla, rozdělení na jednotlivé číslice do seznamu, kontroly dle zadání.
 def seznam_zadane_cislo():
     zadane_cislo = input("Enter a number:")
-    if zadane_cislo.isnumeric() and len(zadane_cislo) == 4:
-        print(oddelovac)
-    else:
-        print("the number doesnt have four numbers or not numeric")
-        quit()
-    if zadane_cislo[0] == "0":
-        print("0 mustn\'t be in the first place")
+    print(oddelovac)
+    # počítadlo zadání čísla
     global pocet_zadani
     if zadane_cislo != 0:
         pocet_zadani = pocet_zadani + 1
-    print(pocet_zadani)
+    print(f"guess: {pocet_zadani}")
+    # kontrola číslo je číslo a čtyřmístné
+    if zadane_cislo.isnumeric() and len(zadane_cislo) == 4:
+        pass
+    elif len(zadane_cislo) < 4:
+        print("The number has a little numbers! Stop")
+        quit()
+    else:
+        print("the number doesnt have four numbers or not numeric")
+    # seznam ze zadaného čísla
     global zadane_cislo_seznam
     zadane_cislo_seznam = list(f"{zadane_cislo[0]}{zadane_cislo[1]}{zadane_cislo[2]}{zadane_cislo[3]}")
+    # kontrola unikátnosti číslic
+    if len(zadane_cislo_seznam) != len(set(zadane_cislo_seznam)):
+        print("The numbers mustn\'t be same")
+    # kontrola - nesmí být 0 na začátku
+    if zadane_cislo[0] == "0":
+        print("0 mustn\'t be in the first place")
 
-# počítání cow, vč. ukončení pokud cow = 4
 
-def pocitani_cow(cow = 0):
+# počítání bull ikdyž se jmenuje cow:-)
+def pocitani_cow(cow=0):
     if zadane_cislo_seznam[0] == nahodne_cislo_seznam[0]:
         cow = cow + 1
     if zadane_cislo_seznam[1] == nahodne_cislo_seznam[1]:
@@ -74,17 +81,18 @@ def pocitani_cow(cow = 0):
         cow = cow + 1
     if zadane_cislo_seznam[3] == nahodne_cislo_seznam[3]:
         cow = cow + 1
+    # rozlišení jednotného a množného čísla
     if cow <= 1:
-        print("cow: ", cow)
+        print("bull: ", cow)
     else:
-        print("cows: ", cow)
+        print("bulls: ", cow)
     if cow == 4:
-        print("Nahodné číslo bylo: ", nahodne_cislo, "vyhráls")
+        print(f"Correct, you've guessed the right number in {pocet_zadani}  guesses!")
         quit()
 
-# počítání bull
 
-def pocitani_bull(bull = 0):
+# počítání cow ikdyž se jmenuje bull :-)
+def pocitani_bull(bull=0):
     if zadane_cislo_seznam[0] == nahodne_cislo_seznam[1]:
         bull = bull + 1
     if zadane_cislo_seznam[0] == nahodne_cislo_seznam[2]:
@@ -109,22 +117,17 @@ def pocitani_bull(bull = 0):
         bull = bull + 1
     if zadane_cislo_seznam[3] == nahodne_cislo_seznam[2]:
         bull = bull + 1
+    # rozlišení jednotného a množného čísla
     if bull <= 1:
-        print("bull: ", bull)
+        print("cow: ", bull)
     else:
-        print("bulls: ", bull)
-
+        print("cows: ", bull)
+    # čára
     print(oddelovac)
 
-# opakování hry
 
+# zajištění opakování hry
 while cow < 4:
     seznam_zadane_cislo()
     pocitani_cow()
     pocitani_bull()
-
-#dořešit cow a bull vedle sebe
-#počítání pokusů
-#texty
-#dořešit špatně zadaná čísla (více, méně, jiné znaky)
-
