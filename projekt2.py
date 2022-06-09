@@ -16,7 +16,6 @@ pocet_zadani = 0
 
 # seznam 4 náhodných nestejných číslic
 nahodne_cislo = list()
-
 while len(nahodne_cislo) < 4:
     cislo = random.randint(0, 9)
     if cislo not in nahodne_cislo:
@@ -26,15 +25,13 @@ while len(nahodne_cislo) < 4:
 if nahodne_cislo[0] == 0:
     nahodne_cislo.reverse()
 
-# převedení seznamu na str
-prvni_cislice = nahodne_cislo[0]
-druha_cislice = nahodne_cislo[1]
-treti_cislice = nahodne_cislo[2]
-ctvrta_cislice = nahodne_cislo[3]
-nahodne_cislo_seznam = list(f"{prvni_cislice}{druha_cislice}{treti_cislice}{ctvrta_cislice}")
+# převedení na string. nahodne_cislo nelze převést na string, protože pak nejde zajistit neopakování číslic
+nahodne_cislo_seznam = list()
+for cislo in nahodne_cislo:
+    nahodne_cislo_seznam.append(str(cislo))
 
 # jen pro kontrolu
-# print(nahodne_cislo)
+#print(nahodne_cislo_seznam)
 
 # úvodní text
 print("Hi there!")
@@ -51,7 +48,7 @@ def seznam_zadane_cislo():
     global pocet_zadani
     if zadane_cislo != 0:
         pocet_zadani = pocet_zadani + 1
-    print(f"guess: {pocet_zadani}")
+        print(f"guess: {pocet_zadani}")
     # kontrola číslo je číslo a čtyřmístné
     if zadane_cislo.isnumeric() and len(zadane_cislo) == 4:
         pass
@@ -71,63 +68,63 @@ def seznam_zadane_cislo():
         print("0 mustn\'t be in the first place")
 
 
-# počítání bull ikdyž se jmenuje cow:-)
-def pocitani_cow(cow=0):
-    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[0]:
-        cow = cow + 1
-    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[1]:
-        cow = cow + 1
-    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[2]:
-        cow = cow + 1
-    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[3]:
-        cow = cow + 1
-    # rozlišení jednotného a množného čísla
-    if cow <= 1:
-        print("bull: ", cow)
-    else:
-        print("bulls: ", cow)
-    if cow == 4:
-        print(f"Correct, you've guessed the right number in {pocet_zadani}  guesses!")
-        quit()
-
-
-# počítání cow ikdyž se jmenuje bull :-)
+# počítání bull
 def pocitani_bull(bull=0):
-    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[1]:
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[0]:
         bull = bull + 1
-    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[2]:
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[1]:
         bull = bull + 1
-    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[3]:
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[2]:
         bull = bull + 1
-    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[0]:
-        bull = bull + 1
-    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[2]:
-        bull = bull + 1
-    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[3]:
-        bull = bull + 1
-    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[0]:
-        bull = bull + 1
-    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[1]:
-        bull = bull + 1
-    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[3]:
-        bull = bull + 1
-    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[0]:
-        bull = bull + 1
-    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[1]:
-        bull = bull + 1
-    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[2]:
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[3]:
         bull = bull + 1
     # rozlišení jednotného a množného čísla
     if bull <= 1:
-        print("cow: ", bull)
+        print("bull: ", bull)
     else:
-        print("cows: ", bull)
+        print("bulls: ", bull)
+    if bull == 4:
+        print(f"Correct, you've guessed the right number in {pocet_zadani} guesses!")
+        print(oddelovac)
+        quit()
+
+
+# počítání cow
+def pocitani_cow(cow=0):
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[1]:
+        cow = cow + 1
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[2]:
+        cow = cow + 1
+    if zadane_cislo_seznam[0] == nahodne_cislo_seznam[3]:
+        cow = cow + 1
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[0]:
+        cow = cow + 1
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[2]:
+        cow = cow + 1
+    if zadane_cislo_seznam[1] == nahodne_cislo_seznam[3]:
+        cow = cow + 1
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[0]:
+        cow = cow + 1
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[1]:
+        cow = cow + 1
+    if zadane_cislo_seznam[2] == nahodne_cislo_seznam[3]:
+        cow = cow + 1
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[0]:
+        cow = cow + 1
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[1]:
+        cow = cow + 1
+    if zadane_cislo_seznam[3] == nahodne_cislo_seznam[2]:
+        cow = cow + 1
+    # rozlišení jednotného a množného čísla
+    if cow <= 1:
+        print("cow: ", cow)
+    else:
+        print("cows: ", cow)
     # čára
     print(oddelovac)
-
 
 # zajištění opakování hry
 while cow < 4:
     seznam_zadane_cislo()
-    pocitani_cow()
     pocitani_bull()
+    pocitani_cow()
