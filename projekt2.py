@@ -56,7 +56,7 @@ def seznam_zadane_cislo():
         print("The number has a little numbers! Stop")
         quit()
     else:
-        print("the number doesnt have four numbers or not numeric")
+        print("the number doesn\'t have four numbers or not numeric")
     # seznam ze zadaného čísla
     global zadane_cislo_seznam
     zadane_cislo_seznam = list(f"{zadane_cislo[0]}{zadane_cislo[1]}{zadane_cislo[2]}{zadane_cislo[3]}")
@@ -124,7 +124,7 @@ def pocitani_cow(cow=0):
     print(oddelovac)
 
 # zajištění opakování hry
-while cow < 4:
+while bull < 4:
     seznam_zadane_cislo()
     pocitani_bull()
     pocitani_cow()
